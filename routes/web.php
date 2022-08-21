@@ -6,7 +6,7 @@ use Inertia\Inertia;
 
 Route::get('board', function () {
     return Inertia::render('Board');
-});
+})->middleware('auth');
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
