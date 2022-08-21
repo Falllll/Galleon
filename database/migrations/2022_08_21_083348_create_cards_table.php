@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBoardListsTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreateBoardListsTable extends Migration
      */
     public function up()
     {
-        Schema::create('board_lists', function (Blueprint $table) {
+        Schema::create('cards', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('board_id')->constrained()->onDelete('cascade');
-            $table->string('name');
+            $table->foreignId('card_list_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->string('title');
+            $table->longText('description')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +31,6 @@ class CreateBoardListsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('board_lists');
+        Schema::dropIfExists('cards');
     }
-}
+};
