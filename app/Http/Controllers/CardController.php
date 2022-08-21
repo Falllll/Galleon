@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Card;
+use Illuminate\Support\Facades\DB;
 
 class CardController extends Controller
 {
@@ -30,7 +31,22 @@ class CardController extends Controller
             'title' => ['required']
         ]);
 
-        $card->update(['title' => request('title')]);
+        $card->update(['title' => \request('title')]);
+
+        return redirect()->back();
+    }
+
+    public function move(Card $card)
+    {
+        request()->validate([
+            'cardListId' => ['required', 'exists:card_lists,id'],
+            'position' => ['required', 'numeric']
+        ]);
+
+        $card->update([
+            'card_list_id' => request('cardListId'),
+            'position' => round(request('position'), 5)
+        ]);
 
         return redirect()->back();
     }
