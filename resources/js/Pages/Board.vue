@@ -3,6 +3,7 @@ import {DotsHorizontalIcon, PencilIcon, PlusIcon} from '@heroicons/vue/solid';
 import {Menu, MenuButton, MenuItem, MenuItems} from '@headlessui/vue';
 import Authenticated from '@/Layouts/Authenticated';
 import BoardNameForm from '@/Components/BoardNameForm';
+import CreateBoardListForm from '@/Components/CreateBoardListForm';
 
 const props = defineProps({
   board: Object
@@ -23,11 +24,12 @@ const props = defineProps({
       <div class="flex-1 overflow-x-auto">
         <div class="inline-flex h-full items-start px-4 pb-4 space-x-4">
           <div
-            v-for="item in Array.from({length:3})"
+            v-for="list in board.lists"
+            :key="list.id"
             class="w-72 bg-gray-200 max-h-full flex flex-col rounded-md"
           >
             <div class="flex items-center justify-between px-3 py-2">
-              <h3 class="text-sm font-semibold text-gray-700">Backlog</h3>
+              <h3 class="text-sm font-semibold text-gray-700">{{ list.name }}</h3>
               <Menu
                 as="div"
                 class="relative z-10"
@@ -91,10 +93,7 @@ const props = defineProps({
           </div>
 
           <div class="w-72">
-            <button class="flex items-center bg-white/10 w-full hover:bg-white/20 text-white p-2 text-sm font-medium rounded-md">
-              <PlusIcon class="w-5 h-5"/>
-              <span class="ml-1">Add another list</span>
-            </button>
+            <CreateBoardListForm :board="board" />
           </div>
         </div>
       </div>
