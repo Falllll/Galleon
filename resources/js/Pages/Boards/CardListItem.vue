@@ -1,7 +1,7 @@
 <script setup>
 import {PencilIcon} from "@heroicons/vue/solid";
 import {computed, nextTick, ref} from "vue";
-import {useForm} from "@inertiajs/inertia-vue3";
+import {useForm, InertiaLink} from "@inertiajs/inertia-vue3";
 import {store} from "@/store";
 
 const props = defineProps({
@@ -30,21 +30,22 @@ function onSubmit() {
 <template>
   <li>
     <div
-      class="group relative bg-white p-2 shadow rounded-md border-b border-gray-300 hover:bg-gray-50"
+      class="group relative bg-white shadow rounded-md border-b border-gray-300 hover:bg-gray-50"
     >
       <form
+        class="p-2.5"
         v-if="isShowingForm"
         @keydown.esc="store.editingCardId = null"
         @submit.prevent="onSubmit()"
       >
-    <textarea
-      ref="inputTitleRef"
-      v-model="form.title"
-      class="block w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-blue-400 focus:ring-blue-400"
-      placeholder="Enter card title..."
-      rows="3"
-      @keydown.enter.prevent="onSubmit()"
-    ></textarea>
+        <textarea
+          ref="inputTitleRef"
+          v-model="form.title"
+          class="block w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-blue-400 focus:ring-blue-400"
+          placeholder="Enter card title..."
+          rows="3"
+          @keydown.enter.prevent="onSubmit()"
+        ></textarea>
 
         <div class="mt-2 space-x-2">
           <button
@@ -61,12 +62,14 @@ function onSubmit() {
         </div>
       </form>
 
-
       <template v-if="!isShowingForm">
-        <a
-          class="text-sm"
-          href="#"
-        >{{ card.title }}</a>
+        <InertiaLink
+          class="text-sm block p-2.5"
+          :href="route('boards.show', {board: card.board_id, card: card.id})"
+          preserve-state
+        >
+          {{ card.title }}
+        </InertiaLink>
 
         <button
           class="hidden absolute top-1 right-1 w-8 h-8 bg-gray-50 group-hover:grid place-content-center rounded-md text-gray-600 hover:text-black hover:bg-gray-200"
@@ -88,6 +91,7 @@ function onSubmit() {
   background: lightgray;
   border-radius: 6px;
 }
+
 .ghost > div {
   visibility: hidden;
 }

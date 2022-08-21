@@ -4,9 +4,11 @@ import Authenticated from '@/Layouts/Authenticated';
 import BoardNameForm from '@/Pages/Boards/BoardNameForm';
 import CardListCreateForm from '@/Pages/Boards/CardListCreateForm';
 import CardList from "@/Pages/Boards/CardList";
+import CardListItemModal from "@/Pages/Boards/CardListItemModal";
 
 const props = defineProps({
-  board: Object
+  board: Object,
+  card: Object
 });
 </script>
 <template>
@@ -38,5 +40,7 @@ const props = defineProps({
         </div>
       </div>
     </div>
+
+    <CardListItemModal :card="props.card"/>
   </Authenticated>
 </template>

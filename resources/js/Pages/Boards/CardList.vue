@@ -6,6 +6,7 @@ import {ref, watch} from "vue";
 import CardListItem from "@/Pages/Boards/CardListItem";
 import Draggable from "vuedraggable";
 import {Inertia} from "@inertiajs/inertia";
+import {store} from "@/store";
 
 const props = defineProps({
   list: Object
@@ -96,6 +97,7 @@ function onChange(e) {
         class="overflow-y-auto flex-1 px-3"
       >
         <Draggable
+          :disabled="!!store.editingCardId"
           v-model="cards"
           class="space-y-3"
           drag-class="drag"
