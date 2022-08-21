@@ -1,11 +1,15 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BoardController;
 use App\Http\Controllers\CardController;
 use App\Http\Controllers\CardListController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+
+Route::get('/', [HomeController::class, 'index'])->name('index');
+Route::post('/contact-form', [HomeController::class, 'contact'])->name('contact.store');
 
 Route::group(['middleware' => ['auth', 'verified']], function() {
     Route::get('/boards/{board}/{card?}', [BoardController::class, 'show'])->name('boards.show');
@@ -20,13 +24,13 @@ Route::group(['middleware' => ['auth', 'verified']], function() {
     Route::delete('/cards/{card}', [CardController::class, 'destroy'])->name('cards.destroy');
 });
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+//Route::get('/', function () {
+//    return Inertia::render('Welcome', [
+//        'canLogin' => Route::has('login'),
+//        'canRegister' => Route::has('register'),
+//        'laravelVersion' => Application::VERSION,
+//        'phpVersion' => PHP_VERSION,
+//    ]);
+//});
 
 require __DIR__.'/auth.php';
