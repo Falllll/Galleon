@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BoardController;
 use App\Http\Controllers\CardController;
@@ -22,6 +24,15 @@ Route::group(['middleware' => ['auth', 'verified']], function() {
     Route::put('/cards/{card}', [CardController::class, 'update'])->name('cards.update');
     Route::put('/cards/{card}/move', [CardController::class, 'move'])->name('cards.move');
     Route::delete('/cards/{card}', [CardController::class, 'destroy'])->name('cards.destroy');
+
+    Route::group([
+            'prefix' => 'dashboard',
+            'namespace' => 'Dashboard',
+            'as' => 'dashboard.'
+    ], function (){
+        Route::get('/', [DashboardController::class, 'index'])->name('index');
+        Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+    });
 });
 
 //Route::get('/', function () {

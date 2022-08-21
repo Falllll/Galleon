@@ -7,7 +7,7 @@ import NavLink from '@/Components/NavLink';</script>
   <div>
     <div class="flex flex-col h-screen">
       <nav class="shrink-0 flex justify-between bg-white px-4 py-3 border-b">
-        <a :href="route('boards')" class="text-2xl font-black tracking-tight">kanboard</a>
+        <a :href="route('dashboard.index')" class="text-2xl font-black tracking-tight">Dashboard</a>
         <div class="flex items-center">
           <NavLink href="#">My boards</NavLink>
 
