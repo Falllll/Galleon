@@ -1,15 +1,16 @@
 <script setup>
 import {PlusIcon} from '@heroicons/vue/solid';
-import {nextTick, ref} from "vue";
+import {computed, nextTick, ref} from "vue";
 import {useForm} from "@inertiajs/inertia-vue3";
+import {store} from "@/store";
 
 const props = defineProps({
   list: Object
 });
 const emit = defineEmits(['created']);
 
-const inputNameRef = ref();
-const isShowingForm = ref(false);
+const inputTitleRef = ref();
+const isShowingForm = computed(() => props.list.id === store.value.listCreatingCardId);
 const form = useForm({
   title: '',
   card_list_id: props.list.id,
@@ -17,16 +18,16 @@ const form = useForm({
 });
 
 async function showForm() {
-  isShowingForm.value = true;
+  store.value.listCreatingCardId = props.list.id;
   await nextTick();
-  inputNameRef.value.focus();
+  inputTitleRef.value.focus();
 }
 
 function onSubmit() {
   form.post(route('cards.store'), {
     onSuccess: () => {
       form.reset();
-      inputNameRef.value.focus();
+      inputTitleRef.value.focus();
       emit('created');
     }
   });
@@ -34,12 +35,12 @@ function onSubmit() {
 </script>
 <template>
   <form
-    @keydown.esc="isShowingForm = false"
+    @keydown.esc="store.listCreatingCardId = null"
     v-if="isShowingForm"
     @submit.prevent="onSubmit()"
   >
     <textarea
-      ref="inputNameRef"
+      ref="inputTitleRef"
       v-model="form.title"
       rows="3"
       @keydown.enter.prevent="onSubmit()"
@@ -56,7 +57,7 @@ function onSubmit() {
       <button
         class="px-4 py-2 text-sm font-medium text-gray-700 hover:text-black rounded-md focus:ring-2 focus:ring-offset-2 focus:ring-rose-500 focus:outline-none"
         type="button"
-        @click="isShowingForm = false"
+        @click="store.listCreatingCardId = null"
       >Cancel
       </button>
     </div>
