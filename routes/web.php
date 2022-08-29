@@ -2,6 +2,11 @@
 
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\ProfileController;
+use App\Http\Controllers\Dashboard\ProjectController;
+use App\Http\Controllers\Dashboard\JobController;
+use App\Http\Controllers\Dashboard\IssueController;
+use App\Http\Controllers\Dashboard\CustomerController;
+use App\Http\Controllers\Dashboard\TaskController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BoardController;
 use App\Http\Controllers\CardController;
@@ -32,6 +37,42 @@ Route::group(['middleware' => ['auth', 'verified']], function() {
     ], function (){
         Route::get('/', [DashboardController::class, 'index'])->name('index');
         Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+        Route::get('/customer', [CustomerController::class, 'index'])->name('customer.index');
+        Route::get('/customer/create', [CustomerController::class, 'create'])->name('customer.create');
+        Route::post('/customer/create', [CustomerController::class, 'store'])->name('customer.store');
+        Route::get('/project', [ProjectController::class, 'index'])->name('project.index');
+        Route::get('/project/planned', [ProjectController::class, 'planned'])->name('project.planned');
+        Route::get('/project/progress', [ProjectController::class, 'progress'])->name('project.progress');
+        Route::get('/project/done', [ProjectController::class, 'done'])->name('project.done');
+        Route::get('/project/closed', [ProjectController::class, 'closed'])->name('project.closed');
+        Route::get('/project/canceled', [ProjectController::class, 'canceled'])->name('project.canceled');
+        Route::get('/project/hold', [ProjectController::class, 'hold'])->name('project.hold');
+        Route::get('/project/create', [ProjectController::class, 'create'])->name('project.create');
+        Route::post('/project/create', [ProjectController::class, 'store'])->name('project.store');
+        Route::get('/project/{id}/edit', [ProjectController::class, 'edit'])->name('project.edit');
+        Route::put('/project/{id}', [ProjectController::class, 'update'])->name('project.update');
+        Route::get('/project/{id}', [ProjectController::class, 'show'])->name('project.show');
+        Route::get('/project/{id}/jobs', [JobController::class, 'index'])->name('project.jobs.index');
+        Route::get('/project/{id}/jobs/create', [JobController::class, 'create'])->name('project.jobs.create');
+        Route::post('/project/create/job', [JobController::class, 'store'])->name('project.job.store');
+        Route::get('/project/job/{id}/edit', [JobController::class, 'edit'])->name('project.job.edit');
+        Route::put('/project/job/{id}', [JobController::class, 'update'])->name('project.job.update');
+
+        Route::get('/project/{id}/issue', [IssueController::class, 'index'])->name('project.issue.index');
+        Route::get('/project/{id}/issue/create', [IssueController::class, 'create'])->name('project.issue.create');
+        Route::post('/project/create/issue', [IssueController::class, 'store'])->name('project.issue.store');
+        Route::get('/project/issue/{id}/edit', [IssueController::class, 'edit'])->name('project.issue.edit');
+        Route::put('/project/issue/{id}', [IssueController::class, 'update'])->name('project.issue.update');
+
+        // Route::get('/project', [ProjectController::class, 'index'])->name('project.index');
+        // Route::get('/project/create', [ProjectController::class, 'create'])->name('project.create');
+
+        // Route::get('/project/task/{id}', [TaskController::class, 'index'])->name('project.task');
+        // Route::get('/project/task/{id}/create', [TaskController::class, 'create'])->name('project.task.create');
+        // Route::post('/project/task', [TaskController::class, 'store'])->name('project.task.store');
+        // Route::get('/project/task/{id}/edit', [TaskController::class, 'edit'])->name('project.task.edit');
+        // Route::put('/project/task/{id}', [TaskController::class, 'update'])->name('project.task.update');
+        
     });
 });
 

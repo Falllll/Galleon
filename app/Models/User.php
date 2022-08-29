@@ -54,4 +54,19 @@ class User extends Authenticatable
     {
         return $this->hasMany(Board::class);
     }
+
+    public function projects()
+    {
+        return $this->belongsToMany(Project::class);
+    }
+
+    public function jobs()
+    {
+        return $this->hasMany(Job::class, 'worker_id');
+    }
+
+    public function issues()
+    {
+        return $this->hasMany(Issue::class, 'worker_id');
+    }
 }

@@ -33,5 +33,9 @@ class DatabaseSeeder extends Seeder
                 'card_list_id' => $cardList->id
             ]);
         }
+
+        $this->call(UserSeeder::class);
+        $this->call(CustomerSeeder::class);
+        $this->call(ProjectSeeder::class);
     }
 }
