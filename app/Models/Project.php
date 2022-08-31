@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Laravelista\Comments\Commentable;
 
 class Project extends Model
 {
-    use HasFactory;
+    use HasFactory, Commentable;
 
     public function customer()
     {

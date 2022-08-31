@@ -82,6 +82,11 @@
                               </p>
                             @endif
                         </td>
+                        <td
+                        class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                        <a href="{{ url('dashboard/customer') }}/{{ $data->id }}/{{ 'edit' }}"
+                            class="font-semibold leading-tight text-xs text-slate-400"> Edit </a>
+                        </td>
                       </tr>           
                       @endforeach 
                     </tbody>

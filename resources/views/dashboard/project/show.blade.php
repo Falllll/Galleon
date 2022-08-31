@@ -33,9 +33,9 @@
                                         </a>
                                     </li>
                                     <li class="z-30 flex-auto text-center">
-                                        <a class="z-30 block w-full px-0 py-1 mb-0 transition-colors border-0 rounded-lg ease-soft-in-out bg-inherit text-slate-700"
+                                        <a href="{{ url('dashboard/project') }}/{{ $project->id }}/{{ 'comment' }}" class="z-30 block w-full px-0 py-1 mb-0 transition-colors border-0 rounded-lg ease-soft-in-out bg-inherit text-slate-700"
                                             nav-link href="javascript:;" role="tab" aria-selected="false">
-                                            <span class="ml-1">Comment</span>
+                                            <span class="ml-1">Chat</span>
                                         </a>
                                     </li>
                                 </ul>

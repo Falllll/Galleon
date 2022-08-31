@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->unsignedInteger('worker_id')->nullable();
             $table->string('type_id')->nullable();
+            $table->string('status')->default('To Do');
             $table->timestamps();
         });
     }

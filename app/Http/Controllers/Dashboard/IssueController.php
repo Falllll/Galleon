@@ -86,6 +86,7 @@ class IssueController extends Controller
         $issue->description = $request->description;
         $issue->worker_id = $request->worker_id;
         $issue->type_id = $request->type_id;
+        $project->status = $request->status;
         $issue->save();
 
         return redirect('dashboard/project')->with('status', 'Project created!');

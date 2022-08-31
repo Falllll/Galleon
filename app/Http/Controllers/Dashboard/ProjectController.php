@@ -137,7 +137,7 @@ class ProjectController extends Controller
 
     public function hold()
     {
-        $projects = Project::where('status', 'Hold')->get();
+        $projects = Project::where('status', 'On Hold')->get();
 
         return view('dashboard.project.index')
         ->with('projects', $projects);

@@ -35,9 +35,9 @@
                                         </a>
                                     </li>
                                     <li class="z-30 flex-auto text-center">
-                                        <a class="z-30 block w-full px-0 py-1 mb-0 transition-colors border-0 rounded-lg ease-soft-in-out bg-inherit text-slate-700"
+                                        <a href="{{ url('dashboard/project') }}/{{ $project->id }}/{{ 'comment' }}" class="z-30 block w-full px-0 py-1 mb-0 transition-colors border-0 rounded-lg ease-soft-in-out bg-inherit text-slate-700"
                                             nav-link href="javascript:;" role="tab" aria-selected="false">
-                                            <span class="ml-1">Comment</span>
+                                            <span class="ml-1">Chat</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -78,6 +78,9 @@
                                     <th
                                         class="px-6 py-3  text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-sm border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
                                         Type</th>
+                                        <th
+                                        class="px-6 py-3  text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-sm border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
+                                        Status</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -108,6 +111,13 @@
                                         class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                                         <p class="mb-0 font-semibold leading-tight text-xs">
                                             {{ $data->type_id }}
+                                        </p>
+
+                                    </td>
+                                    <td
+                                        class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                        <p class="mb-0 font-semibold leading-tight text-xs">
+                                            {{ $data->status }}
                                         </p>
 
                                     </td>

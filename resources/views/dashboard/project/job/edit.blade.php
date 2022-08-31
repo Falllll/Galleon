@@ -67,7 +67,20 @@
                       </div>
 
      
-
+                      <div class="mb-4">
+                        <select id="status"
+                            class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow {{ $errors->has('status') ? ' is-invalid' : '' }}"
+                            name="status">
+                            <option value="">Progress</option>
+        
+                            <option value="To Do">To Do</option>
+                            <option value="Done">Done</option>
+     
+                        </select>
+                        @if($errors->has('status'))
+                            <div class="text-red-600">{{$errors->first('status')}}</div>
+                        @endif
+                      </div>
                     
 
                       <div class="text-left">

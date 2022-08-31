@@ -7,6 +7,7 @@ use App\Http\Controllers\Dashboard\JobController;
 use App\Http\Controllers\Dashboard\IssueController;
 use App\Http\Controllers\Dashboard\CustomerController;
 use App\Http\Controllers\Dashboard\TaskController;
+use App\Http\Controllers\Dashboard\CommentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BoardController;
 use App\Http\Controllers\CardController;
@@ -40,6 +41,8 @@ Route::group(['middleware' => ['auth', 'verified']], function() {
         Route::get('/customer', [CustomerController::class, 'index'])->name('customer.index');
         Route::get('/customer/create', [CustomerController::class, 'create'])->name('customer.create');
         Route::post('/customer/create', [CustomerController::class, 'store'])->name('customer.store');
+        Route::get('/customer/{id}/edit', [CustomerController::class, 'edit'])->name('customer.edit');
+        Route::put('/customer/{id}', [CustomerController::class, 'update'])->name('customer.update');
         Route::get('/project', [ProjectController::class, 'index'])->name('project.index');
         Route::get('/project/planned', [ProjectController::class, 'planned'])->name('project.planned');
         Route::get('/project/progress', [ProjectController::class, 'progress'])->name('project.progress');
@@ -63,6 +66,8 @@ Route::group(['middleware' => ['auth', 'verified']], function() {
         Route::post('/project/create/issue', [IssueController::class, 'store'])->name('project.issue.store');
         Route::get('/project/issue/{id}/edit', [IssueController::class, 'edit'])->name('project.issue.edit');
         Route::put('/project/issue/{id}', [IssueController::class, 'update'])->name('project.issue.update');
+
+        Route::get('/project/{id}/comment', [CommentController::class, 'show'])->name('project.comment.show');
 
         // Route::get('/project', [ProjectController::class, 'index'])->name('project.index');
         // Route::get('/project/create', [ProjectController::class, 'create'])->name('project.create');

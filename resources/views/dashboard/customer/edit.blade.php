@@ -1,69 +1,52 @@
 @extends('dashboard.app')
-@section('title','Project')
-@section('head', 'Project')
-@section('header', 'Project')
+@section('title','Customer')
+@section('head', 'Customer')
+@section('header', 'Customer')
 @section('content')
 
 
     <div class="flex-none w-full max-w-full px-3">
         <div class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
                     <div class="flex-auto p-6">
-                    <form role="form" method="POST" action="{{route('dashboard.project.issue.store')}}">
-                      @csrf
+                    <form role="form" method="POST" action="{{route('dashboard.customer.update', $customer->id)}}">
+                      @method('PUT')
+                        @csrf
 
-                        <input type="hidden" name="project_id" value="{{ $project->id}}">
-
-                      <label class="mb-2 ml-1 font-bold text-xs text-slate-700">Issue<span class="text-red-600">*</span></label>
-                      <div class="">
+                      <label class="mb-2 ml-1 font-bold text-xs text-slate-700">Name<span class="text-red-600">*</span></label>
+                      <div class="mb-4">
                         <input type="text" class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow {{ $errors->has('name') ? ' is-invalid' : '' }}"
-                        placeholder="Issue Name" aria-label="Issue" aria-describedby="Issue-addon" name="name" value="{{old('name')}}" require/>
+                        placeholder="Customer Name" aria-label="Project" aria-describedby="project-addon" name="name" value="{{old('name', $customer->name)}}" require/>
                         @if($errors->has('name'))
                             <div class="text-red-600">{{$errors->first('name')}}</div>
                         @endif
                       </div>
 
-                      <label class="mb-2 ml-1 font-bold text-xs text-slate-700">Description<span class="text-red-600">*</span></label>
-                      <div class="mb-10">
-                        <input type="text" class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow {{ $errors->has('description') ? ' is-invalid' : '' }}"
-                        placeholder="Description Issue" aria-label="Description" aria-describedby="description-addon" name="description" value="{{old('description')}}" require/>
-                        @if($errors->has('description'))
-                            <div class="text-red-600">{{$errors->first('description')}}</div>
-                        @endif
-                      </div>
-
+                      <label class="mb-2 ml-1 font-bold text-xs text-slate-700">Email</label>
                       <div class="mb-4">
-                        <select id="worker_id"
-                            class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow {{ $errors->has('worker_id') ? ' is-invalid' : '' }}"
-                            name="worker_id">
-                            <option value="">Select dev</option>
-                            @foreach ($worker as $data)
-                            <option value="{{$data->id}}">{{$data->name}}</option>
-                            @endforeach
-                        </select>
-                        @if($errors->has('worker_id'))
-                            <div class="text-red-600">{{$errors->first('worker_id')}}</div>
+                        <input type="email" class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow {{ $errors->has('email') ? ' is-invalid' : '' }}"
+                        placeholder="Customer Email" aria-label="Email" aria-describedby="email-addon" name="email" value="{{old('email',  $customer->email)}}" require/>
+                        @if($errors->has('email'))
+                            <div class="text-red-600">{{$errors->first('email')}}</div>
                         @endif
                       </div>
 
+                      <label class="mb-2 ml-1 font-bold text-xs text-slate-700">Phone</label>
                       <div class="mb-4">
-                        <select id="type_id"
-                            class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow {{ $errors->has('type_id') ? ' is-invalid' : '' }}"
-                            name="type_id">
-                            <option value="">Status</option>
-        
-                            <option value="Minor">Minor</option>
-                            <option value="Major">Major</option>
-                            <option value="Critical">Critical</option>
-     
-                        </select>
-                        @if($errors->has('type_id'))
-                            <div class="text-red-600">{{$errors->first('type_id')}}</div>
+                        <input type="number" class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow {{ $errors->has('phone') ? ' is-invalid' : '' }}"
+                        placeholder="Customer phone" aria-label="phone" aria-describedby="phone-addon" name="phone" value="{{old('phone',  $customer->phone)}}" require/>
+                        @if($errors->has('phone'))
+                            <div class="text-red-600">{{$errors->first('phone')}}</div>
                         @endif
                       </div>
 
-     
-
-                    
+                      <label class="mb-2 ml-1 font-bold text-xs text-slate-700">Address</label>
+                      <div class="mb-4">
+                        <input type="text" class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow {{ $errors->has('address') ? ' is-invalid' : '' }}"
+                        placeholder="Customer address" aria-label="address" aria-describedby="address-addon" name="address" value="{{old('address',  $customer->address)}}" require/>
+                        @if($errors->has('address'))
+                            <div class="text-red-600">{{$errors->first('address')}}</div>
+                        @endif
+                      </div>
 
                       <div class="text-left">
                         <button type="submit" class="inline-block px-6 py-3 mt-6 mb-0 font-bold text-cente uppercase align-middle transition-all bg-transparent border-0 rounded-lg cursor-pointer shadow-soft-md bg-x-25 bg-150 leading-pro text-xs ease-soft-in tracking-tight-soft bg-gradient-to-tl from-blue-600 to-cyan-400 hover:scale-102 hover:shadow-soft-xs active:opacity-85">Create</button>

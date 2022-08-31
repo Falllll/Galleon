@@ -42,4 +42,33 @@ class CustomerController extends Controller
 
         return redirect('dashboard/customer')->with('status', 'Customer created!');
     }
+
+    public function edit($id)
+    {
+        $customer = Customer::findOrFail($id);
+        return view('dashboard.customer.edit', compact([ 'customer']));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $rules = [
+            'name' => 'required|max:50',
+        ];
+
+        $messages = [
+            'name.required' => 'Nama Customer harus diisi',
+            'name.max' => 'Nama Customer terlalu panjang',
+        ];
+
+        $this->validate($request, $rules, $messages);
+
+        $customer = Customer::find($id);
+        $customer->name = $request->name;
+        $customer->email = $request->email;
+        $customer->phone = $request->phone;
+        $customer->address = $request->address;
+        $customer->save();
+
+        return redirect('dashboard/customer')->with('status', 'Customer created!');
+    }
 }

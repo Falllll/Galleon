@@ -37,5 +37,49 @@ class ProjectSeeder extends Seeder
             'status' => 'Plan',
             'customer_id' => '3',
         ]);
+
+        Project::create([
+            'name' => 'Sistem Informasi Kelautan',
+            'description' => 'Ini adalah sistem informasi Kelautan',
+            'proposal_date' => Carbon::now()->format('Y-m-d H:i:s'),
+            'status' => 'On Hold',
+            'customer_id' => '1',
+        ]);
+
+        Project::create([
+            'name' => 'Sistem Informasi Desa',
+            'description' => 'Ini adalah sistem informasi Desa',
+            'proposal_date' => Carbon::now()->format('Y-m-d H:i:s'),
+            'status' => 'Progress',
+            'customer_id' => '2',
+        ]);
+
+        Project::create([
+            'name' => 'Sistem Informasi Akademik SMAN 1 Indramayu',
+            'proposal_date' => Carbon::now()->format('Y-m-d H:i:s'),
+            'status' => 'Done',
+            'customer_id' => '5',
+        ]);
+
+        Project::create([
+            'name' => 'Sistem Informasi Akademik SMAN 1 Sindang',
+            'proposal_date' => Carbon::now()->format('Y-m-d H:i:s'),
+            'status' => 'Done',
+            'customer_id' => '5',
+        ]);
+
+        Project::create([
+            'name' => 'Aplikasi E-Kasir',
+            'proposal_date' => Carbon::now()->format('Y-m-d H:i:s'),
+            'status' => 'Closed',
+            'customer_id' => '4',
+        ]);
+
+        Project::create([
+            'name' => 'Aplikasi E-Voting',
+            'proposal_date' => Carbon::now()->format('Y-m-d H:i:s'),
+            'status' => 'Canceled',
+            'customer_id' => '3',
+        ]);
     }
 }

@@ -85,6 +85,7 @@ class JobController extends Controller
         $job->name = $request->name;
         $job->description = $request->description;
         $job->worker_id = $request->worker_id;
+        $project->status = $request->status;
         $job->type_id = $request->type_id;
         $job->save();
 
