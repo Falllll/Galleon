@@ -47,7 +47,7 @@ class ProjectController extends Controller
         $project->description = $request->description;
         $project->save();
 
-        return redirect('dashboard/project')->with('status', 'Project created!');
+        return redirect('dashboard/project/create')->with('status', 'Project created!');
     }
 
     public function edit($id)
@@ -84,7 +84,7 @@ class ProjectController extends Controller
         $project->description = $request->description;
         $project->save();
 
-        return redirect('dashboard/project')->with('status', 'Project created!');
+        return redirect()->back()->with('status', 'Project updated!');
     }
 
     public function show($id)

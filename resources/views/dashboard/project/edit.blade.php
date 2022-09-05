@@ -4,6 +4,14 @@
 @section('header', 'Project')
 @section('content')
 
+@if(session()->has('status'))
+  <div id="alert" class="z-10 absolute top-20 right-4 w-80 flex bg-blue-900 rounded-lg p-4 mb-4" role="alert">
+      <svg class="w-5 h-5 text-white flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+      <div class="ml-3 text-sm font-medium text-white">
+          {{ session('status') }}
+      </div>
+  </div>
+@endif
 
     <div class="flex-none w-full max-w-full px-3">
         <div class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
@@ -15,7 +23,7 @@
                       <label class="mb-2 ml-1 font-bold text-xs text-slate-700">Project<span class="text-red-600">*</span></label>
                       <div class="mb-4">
                         <input type="text" class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow {{ $errors->has('name') ? ' is-invalid' : '' }}"
-                        placeholder="Project Name" aria-label="Project" aria-describedby="project-addon" name="name" value="{{old('name', $project->name)}}" require/>
+                        placeholder="Project Name" autocomplete="off" aria-label="Project" aria-describedby="project-addon" name="name" value="{{old('name', $project->name)}}" require/>
                         @if($errors->has('name'))
                             <div class="text-red-600">{{$errors->first('name')}}</div>
                         @endif
@@ -43,13 +51,15 @@
                         <select id="status"
                             class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow {{ $errors->has('status') ? ' is-invalid' : '' }}"
                             name="status">
-                              <option value="">--Status--</option>
+                            @if ( old('status', $project->status) == $project->status )
+                              <option value="{{ $project->status }}" selected>--{{ $project->status }}--</option>
                               <option value="Plan">Plan</option>
                               <option value="Progress">Progress</option>
                               <option value="Done">Done</option>
                               <option value="Closed">Closed</option>
                               <option value="Canceled">Canceled</option>
                               <option value="On Hold">On Hold</option>
+                            @endif
                         </select>
                         @if($errors->has('status'))
                             <div class="text-red-600">{{$errors->first('status')}}</div>
@@ -62,7 +72,7 @@
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                     <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
                                 </div>
-                                <input id="proposal_date" datepicker="" datepicker-format="yyyy/mm/dd" type="text" name="proposal_date" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg
+                                <input id="proposal_date" datepicker="" autocomplete="off" datepicker-format="yyyy/mm/dd" type="text" name="proposal_date" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg
                                 focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600
                                 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 {{ $errors->has('proposal_date') ? ' is-invalid' : '' }}"
                                         data-toggle="datetimepicker" data-target="#datetimepicker"
@@ -76,14 +86,15 @@
                         <label class="mb-2 ml-1 font-bold text-xs text-slate-700">Description<span class="text-red-600">*</span></label>
                         <div class="mb-4">
                           <input type="text" class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow {{ $errors->has('description') ? ' is-invalid' : '' }}"
-                          placeholder="Description Project" aria-label="Description" aria-describedby="description-addon" name="description" value="{{old('description', $project->description)}}" require/>
+                          placeholder="Description Project" aria-label="Description" autocomplete="off" aria-describedby="description-addon" name="description" value="{{old('description', $project->description)}}" require/>
                           @if($errors->has('description'))
                               <div class="text-red-600">{{$errors->first('description')}}</div>
                           @endif
                         </div>
 
                       <div class="text-left">
-                        <button type="submit" class="inline-block px-6 py-3 mt-6 mb-0 font-bold text-cente uppercase align-middle transition-all bg-transparent border-0 rounded-lg cursor-pointer shadow-soft-md bg-x-25 bg-150 leading-pro text-xs ease-soft-in tracking-tight-soft bg-gradient-to-tl from-blue-600 to-cyan-400 hover:scale-102 hover:shadow-soft-xs active:opacity-85">Create</button>
+                        <button type="submit" class="inline-block px-6 py-3 mt-6 mb-0 font-bold text-cente uppercase align-middle transition-all bg-transparent border-0 rounded-lg cursor-pointer shadow-soft-md bg-x-25 bg-150 leading-pro text-xs ease-soft-in tracking-tight-soft bg-gradient-to-tl from-blue-600 to-cyan-400 hover:scale-102 hover:shadow-soft-xs active:opacity-85 text-white">Update</button>
+                        <a href="{{ route('dashboard.project.index') }}" class="inline-block px-6 py-3 mt-6 mb-0 font-bold text-cente uppercase align-middle transition-all bg-transparent border-0 rounded-lg cursor-pointer shadow-soft-md bg-x-25 bg-150 leading-pro text-xs ease-soft-in tracking-tight-soft bg-gradient-to-tl from-gray-600 to-slate-400 hover:scale-102 hover:shadow-soft-xs active:opacity-85 text-white" >Back</a>
                       </div>
                     </form>
                   </div>

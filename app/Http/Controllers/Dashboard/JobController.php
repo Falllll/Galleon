@@ -34,12 +34,14 @@ class JobController extends Controller
         $rules = [
             'name' => 'required|max:100',
             'worker_id' => 'required',
+            'type_id' => 'required',
         ];
 
         $messages = [
             'name.required' => 'Nama Job harus diisi',
             'name.max' => 'Nama Job terlalu panjang',
-            'worker_id.required' => 'Nama klien harus diisi',
+            'worker_id.required' => 'Nama pekerja harus diisi',
+            'type_id.required' => 'Tipe pekerjaan harus diisi',
         ];
 
         $this->validate($request, $rules, $messages);
@@ -52,17 +54,19 @@ class JobController extends Controller
         $job->type_id = $request->type_id;
         $job->save();
 
-        return redirect('dashboard/project')->with('status', 'Project created!');
+        return redirect()->back()->with('status', 'Task created!');
     }
 
     public function edit($id)
     {
         $job = Job::with('worker')->findOrFail($id);
         $worker = User::all();
+        $project = Project::findOrFail($id);
 
         return view('dashboard.project.job.edit')
         ->with('job', $job)
-        ->with('worker', $worker);
+        ->with('worker', $worker)
+        ->with('project', $project);
     }
 
     public function update(Request $request, $id)
@@ -70,26 +74,27 @@ class JobController extends Controller
         $rules = [
             'name' => 'required|max:100',
             'worker_id' => 'required',
+            'type_id' => 'required',
         ];
 
         $messages = [
             'name.required' => 'Nama Job harus diisi',
             'name.max' => 'Nama Job terlalu panjang',
-            'worker_id.required' => 'Nama klien harus diisi',
+            'worker_id.required' => 'Nama pekerja harus diisi',
+            'type_id.required' => 'Tipe pekerjaan harus diisi',
         ];
 
         $this->validate($request, $rules, $messages);
 
         $job = Job::find($id);
-        $job->project_id = $request->project_id;
         $job->name = $request->name;
         $job->description = $request->description;
         $job->worker_id = $request->worker_id;
-        $project->status = $request->status;
+        $job->status = $request->status;
         $job->type_id = $request->type_id;
         $job->save();
 
-        return redirect('dashboard/project')->with('status', 'Project created!');
+        return redirect()->back()->with('status', 'Task updated!');
     }
 
 }

@@ -4,6 +4,14 @@
 @section('header', 'Project')
 @section('content')
 
+@if(session()->has('status'))
+  <div id="alert" class="z-10 absolute top-20 right-4 w-80 flex bg-blue-900 rounded-lg p-4 mb-4" role="alert">
+      <svg class="w-5 h-5 text-white flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+      <div class="ml-3 text-sm font-medium text-white">
+          {{ session('status') }}
+      </div>
+  </div>
+@endif
 
     <div class="flex-none w-full max-w-full px-3">
         <div class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
@@ -12,12 +20,10 @@
                       @method('PUT')
                         @csrf
 
-                        <input type="hidden" name="project_id" value="{{ $job->id}}">
-
                       <label class="mb-2 ml-1 font-bold text-xs text-slate-700">Project<span class="text-red-600">*</span></label>
                       <div class="">
                         <input type="text" class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow {{ $errors->has('name') ? ' is-invalid' : '' }}"
-                        placeholder="Job Name" aria-label="Job" aria-describedby="Job-addon" name="name" value="{{old('name', $job->name)}}" require/>
+                        placeholder="Job Name" aria-label="Job" autocomplete="off" aria-describedby="Job-addon" name="name" value="{{old('name', $job->name)}}" require/>
                         @if($errors->has('name'))
                             <div class="text-red-600">{{$errors->first('name')}}</div>
                         @endif
@@ -26,7 +32,7 @@
                       <label class="mb-2 ml-1 font-bold text-xs text-slate-700">Description<span class="text-red-600">*</span></label>
                       <div class="mb-10">
                         <input type="text" class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow {{ $errors->has('description') ? ' is-invalid' : '' }}"
-                        placeholder="Description Job" aria-label="Description" aria-describedby="description-addon" name="description" value="{{old('description', $job->description)}}" require/>
+                        placeholder="Description Job" autocomplete="off" aria-label="Description" aria-describedby="description-addon" name="description" value="{{old('description', $job->description)}}" require/>
                         @if($errors->has('description'))
                             <div class="text-red-600">{{$errors->first('description')}}</div>
                         @endif
@@ -54,11 +60,13 @@
                         <select id="type_id"
                             class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow {{ $errors->has('type_id') ? ' is-invalid' : '' }}"
                             name="type_id">
-                            <option value="">Type</option>
+                            @if ( old('type_id', $job->type_id) == $job->type_id )
+                              <option value="{{ $job->type_id }}" selected>--{{ $job->type_id }}--</option>
         
-                            <option value="Main">Main</option>
-                            <option value="Additional">Additional</option>
-                            <option value="other">other</option>
+                              <option value="Main">Main</option>
+                              <option value="Additional">Additional</option>
+                              <option value="other">other</option>
+                            @endif
      
                         </select>
                         @if($errors->has('type_id'))
@@ -71,10 +79,12 @@
                         <select id="status"
                             class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow {{ $errors->has('status') ? ' is-invalid' : '' }}"
                             name="status">
-                            <option value="">Progress</option>
-        
+                            @if ( old('status', $job->status) == $job->status )
+                            <option value="{{ $job->status }}" selected>--{{ $job->status }}--</option>
                             <option value="To Do">To Do</option>
+                            <option value="Proggress">Progress</option>
                             <option value="Done">Done</option>
+                            @endif
      
                         </select>
                         @if($errors->has('status'))
@@ -84,7 +94,8 @@
                     
 
                       <div class="text-left">
-                        <button type="submit" class="inline-block px-6 py-3 mt-6 mb-0 font-bold text-cente uppercase align-middle transition-all bg-transparent border-0 rounded-lg cursor-pointer shadow-soft-md bg-x-25 bg-150 leading-pro text-xs ease-soft-in tracking-tight-soft bg-gradient-to-tl from-blue-600 to-cyan-400 hover:scale-102 hover:shadow-soft-xs active:opacity-85">Create</button>
+                        <button type="submit" class="inline-block px-6 py-3 mt-6 mb-0 font-bold text-cente uppercase align-middle transition-all bg-transparent border-0 rounded-lg cursor-pointer shadow-soft-md bg-x-25 bg-150 leading-pro text-xs ease-soft-in tracking-tight-soft bg-gradient-to-tl from-blue-600 to-cyan-400 hover:scale-102 hover:shadow-soft-xs active:opacity-85 text-white">Update</button>
+                        <a href="{{ url('dashboard/project') }}/{{ $job->project_id }}/{{ 'jobs' }}" class="inline-block px-6 py-3 mt-6 mb-0 font-bold text-cente uppercase align-middle transition-all bg-transparent border-0 rounded-lg cursor-pointer shadow-soft-md bg-x-25 bg-150 leading-pro text-xs ease-soft-in tracking-tight-soft bg-gradient-to-tl from-gray-600 to-slate-400 hover:scale-102 hover:shadow-soft-xs active:opacity-85 text-white" >Back</a>
                       </div>
                     </form>
                   </div>
@@ -95,6 +106,25 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://unpkg.com/@themesberg/flowbite@1.1.1/dist/datepicker.bundle.js"></script>
 <script>
+
+var element = document.getElementById('back-link');
+
+// Provide a standard href to facilitate standard browser features such as 
+//  - Hover to see link
+//  - Right click and copy link
+//  - Right click and open in new tab
+element.setAttribute('href', document.referrer);
+
+// We can't let the browser use the above href for navigation. If it does, 
+// the browser will think that it is a regular link, and place the current 
+// page on the browser history, so that if the user clicks "back" again,
+// it'll actually return to this page. We need to perform a native back to
+// integrate properly into the browser's history behavior
+element.onclick = function() {
+  history.back();
+  return false;
+}
+
    document.addEventListener("alpine:init", () => {
   Alpine.data("multiselect", () => ({
     style: {

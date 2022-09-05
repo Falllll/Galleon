@@ -60,7 +60,7 @@
           </ul>
         </div>
 
-        @if (Route::has('login'))
+        {{-- @if (Route::has('login'))
           @auth
             <form action="{{ route('logout') }}" method="POST">
               @csrf
@@ -83,7 +83,7 @@
               </div>
             @endif
           @endauth
-        @endif
+        @endif --}}
       </nav>
     </div>
   </div>

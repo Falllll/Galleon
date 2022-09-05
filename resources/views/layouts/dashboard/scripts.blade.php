@@ -8,3 +8,12 @@
   <script src="{{asset('assets/js/soft-ui-dashboard-tailwind.js?v=1.0.3')}}" async></script>
 
   <script src="https://unpkg.com/flowbite@1.3.4/dist/flowbite.js"></script>
+
+  <script>
+    // allert time
+    $(document).ready(function(){
+        setTimeout(function() {
+        $("#alert").fadeOut();               
+        }, 2000);
+    })
+    </script>

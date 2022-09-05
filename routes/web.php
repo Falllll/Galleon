@@ -55,14 +55,14 @@ Route::group(['middleware' => ['auth', 'verified']], function() {
         Route::get('/project/{id}/edit', [ProjectController::class, 'edit'])->name('project.edit');
         Route::put('/project/{id}', [ProjectController::class, 'update'])->name('project.update');
         Route::get('/project/{id}', [ProjectController::class, 'show'])->name('project.show');
-        Route::get('/project/{id}/jobs', [JobController::class, 'index'])->name('project.jobs.index');
-        Route::get('/project/{id}/jobs/create', [JobController::class, 'create'])->name('project.jobs.create');
+        Route::get('/project/{project_id}/jobs', [JobController::class, 'index'])->name('project.jobs.index');
+        Route::get('/project/{project_id}/jobs/create', [JobController::class, 'create'])->name('project.jobs.create');
         Route::post('/project/create/job', [JobController::class, 'store'])->name('project.job.store');
         Route::get('/project/job/{id}/edit', [JobController::class, 'edit'])->name('project.job.edit');
         Route::put('/project/job/{id}', [JobController::class, 'update'])->name('project.job.update');
 
-        Route::get('/project/{id}/issue', [IssueController::class, 'index'])->name('project.issue.index');
-        Route::get('/project/{id}/issue/create', [IssueController::class, 'create'])->name('project.issue.create');
+        Route::get('/project/{project_id}/issue', [IssueController::class, 'index'])->name('project.issue.index');
+        Route::get('/project/{project_id}/issue/create', [IssueController::class, 'create'])->name('project.issue.create');
         Route::post('/project/create/issue', [IssueController::class, 'store'])->name('project.issue.store');
         Route::get('/project/issue/{id}/edit', [IssueController::class, 'edit'])->name('project.issue.edit');
         Route::put('/project/issue/{id}', [IssueController::class, 'update'])->name('project.issue.update');

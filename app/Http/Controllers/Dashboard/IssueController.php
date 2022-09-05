@@ -34,12 +34,14 @@ class IssueController extends Controller
         $rules = [
             'name' => 'required|max:100',
             'worker_id' => 'required',
+            'type_id' => 'required',
         ];
 
         $messages = [
-            'name.required' => 'Nama Issue harus diisi',
-            'name.max' => 'Nama Issue terlalu panjang',
-            'worker_id.required' => 'Nama klien harus diisi',
+            'name.required' => 'Nama Job harus diisi',
+            'name.max' => 'Nama Job terlalu panjang',
+            'worker_id.required' => 'Nama pekerja harus diisi',
+            'type_id.required' => 'Tipe isu harus diisi',
         ];
 
         $this->validate($request, $rules, $messages);
@@ -52,16 +54,18 @@ class IssueController extends Controller
         $issue->type_id = $request->type_id;
         $issue->save();
 
-        return redirect('dashboard/project')->with('status', 'Project created!');
+        return redirect()->back()->with('status', 'Issue created!');
     }
 
     public function edit($id)
     {
         $issue = Issue::with('worker')->findOrFail($id);
         $worker = User::all();
+        $project = Project::with('customer')->find($id);
 
         return view('dashboard.project.issue.edit')
         ->with('issue', $issue)
+        ->with('project', $project)
         ->with('worker', $worker);
     }
 
@@ -70,25 +74,26 @@ class IssueController extends Controller
         $rules = [
             'name' => 'required|max:100',
             'worker_id' => 'required',
+            'type_id' => 'required',
         ];
 
         $messages = [
-            'name.required' => 'Nama Issue harus diisi',
-            'name.max' => 'Nama Issue terlalu panjang',
-            'worker_id.required' => 'Nama klien harus diisi',
+            'name.required' => 'Nama Job harus diisi',
+            'name.max' => 'Nama Job terlalu panjang',
+            'worker_id.required' => 'Nama pekerja harus diisi',
+            'type_id.required' => 'Tipe isu harus diisi',
         ];
 
         $this->validate($request, $rules, $messages);
 
         $issue = Issue::find($id);
-        $issue->project_id = $request->project_id;
         $issue->name = $request->name;
         $issue->description = $request->description;
         $issue->worker_id = $request->worker_id;
         $issue->type_id = $request->type_id;
-        $project->status = $request->status;
+        $issue->status = $request->status;
         $issue->save();
 
-        return redirect('dashboard/project')->with('status', 'Project created!');
+        return redirect()->back()->with('status', 'Issue updated!');
     }
 }

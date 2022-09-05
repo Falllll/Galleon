@@ -40,7 +40,7 @@ class CustomerController extends Controller
         $customer->address = $request->address;
         $customer->save();
 
-        return redirect('dashboard/customer')->with('status', 'Customer created!');
+        return redirect('dashboard/customer/create')->with('status', 'Customer created!');
     }
 
     public function edit($id)
@@ -69,6 +69,6 @@ class CustomerController extends Controller
         $customer->address = $request->address;
         $customer->save();
 
-        return redirect('dashboard/customer')->with('status', 'Customer created!');
+        return redirect()->back()->with('status', 'Customer updated!');
     }
 }
