@@ -12,6 +12,7 @@
         "laravel/sanctum": "^2.8",
         "laravel/tinker": "^2.7",
         "laravelista/comments": "dev-master",
+        "santigarcor/laratrust": "^7.1",
         "tightenco/ziggy": "^1.0"
     },
     "require-dev": {

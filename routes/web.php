@@ -20,9 +20,9 @@ Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::post('/contact-form', [HomeController::class, 'contact'])->name('contact.store');
 
 Route::group(['middleware' => ['auth', 'verified']], function() {
+    Route::get('/boards', [BoardController::class, 'index'])->name('boards');
     Route::get('/boards/{board}/{card?}', [BoardController::class, 'show'])->name('boards.show');
     Route::put('/boards/{board}', [BoardController::class, 'update'])->name('boards.update');
-    Route::get('/boards', [BoardController::class, 'index'])->name('boards');
     Route::post('/boards', [BoardController::class, 'store'])->name('boards.store');
 
     Route::post('/boards/{board}/lists', [CardListController::class, 'store'])->name('cardLists.store');

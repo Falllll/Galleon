@@ -4,15 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\Board;
 use App\Models\Card;
+use Auth;
 use Inertia\Inertia;
 
 class BoardController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Boards/Index', [
-            'boards' => auth()->user()->boards
-        ]);
+        if(Auth::user()->hasRole('admin')){
+            return Inertia::render('Admin/Index');
+        }elseif(Auth::user()->hasRole('admin')){
+            return Inertia::render('Boards/Index', [
+                'boards' => auth()->user()->boards
+            ]);
+        }
     }
 
     public function show(Board $board, Card $card = null)

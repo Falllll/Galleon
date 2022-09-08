@@ -6,6 +6,7 @@ use App\Models\Board;
 use App\Models\Card;
 use App\Models\CardList;
 use App\Models\User;
+use App\Models\Role;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -17,7 +18,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $user = User::factory()->create(['email' => 'faldi@gmail.com', 'password' => bcrypt('secret')]);
+        $user = User::factory()->create([
+            'name' => 'Gatot Kaca',
+            'email' => 'gatotkaca@gmail.com',
+            'password' => bcrypt('secret')
+        ]);
 
         $boards = Board::factory(10)->for($user)->create();
 
@@ -34,8 +39,11 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
+        $this->call(LaratrustSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(CustomerSeeder::class);
         $this->call(ProjectSeeder::class);
+
+        $user->attachRole('user');
     }
 }
