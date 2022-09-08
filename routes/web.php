@@ -8,6 +8,11 @@ use App\Http\Controllers\Dashboard\IssueController;
 use App\Http\Controllers\Dashboard\CustomerController;
 use App\Http\Controllers\Dashboard\TaskController;
 use App\Http\Controllers\Dashboard\CommentController;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\CustomerAdminController;
+use App\Http\Controllers\Admin\ProjectAdminController;
+use App\Http\Controllers\Admin\TaskAdminController;
+use App\Http\Controllers\Admin\IssueAdminController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BoardController;
 use App\Http\Controllers\CardController;
@@ -19,7 +24,7 @@ use Inertia\Inertia;
 Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::post('/contact-form', [HomeController::class, 'contact'])->name('contact.store');
 
-Route::group(['middleware' => ['auth', 'verified']], function() {
+Route::group(['middleware' => ['role:user', 'auth', 'verified']], function() {
     Route::get('/boards', [BoardController::class, 'index'])->name('boards');
     Route::get('/boards/{board}/{card?}', [BoardController::class, 'show'])->name('boards.show');
     Route::put('/boards/{board}', [BoardController::class, 'update'])->name('boards.update');
@@ -39,10 +44,11 @@ Route::group(['middleware' => ['auth', 'verified']], function() {
         Route::get('/', [DashboardController::class, 'index'])->name('index');
         Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
         Route::get('/customer', [CustomerController::class, 'index'])->name('customer.index');
-        Route::get('/customer/create', [CustomerController::class, 'create'])->name('customer.create');
-        Route::post('/customer/create', [CustomerController::class, 'store'])->name('customer.store');
-        Route::get('/customer/{id}/edit', [CustomerController::class, 'edit'])->name('customer.edit');
-        Route::put('/customer/{id}', [CustomerController::class, 'update'])->name('customer.update');
+        Route::get('/customer/{id}', [CustomerController::class, 'show'])->name('customer.show');
+        // Route::get('/customer/create', [CustomerController::class, 'create'])->name('customer.create');
+        // Route::post('/customer/create', [CustomerController::class, 'store'])->name('customer.store');
+        // Route::get('/customer/{id}/edit', [CustomerController::class, 'edit'])->name('customer.edit');
+        // Route::put('/customer/{id}', [CustomerController::class, 'update'])->name('customer.update');
         Route::get('/project', [ProjectController::class, 'index'])->name('project.index');
         Route::get('/project/planned', [ProjectController::class, 'planned'])->name('project.planned');
         Route::get('/project/progress', [ProjectController::class, 'progress'])->name('project.progress');
@@ -50,10 +56,10 @@ Route::group(['middleware' => ['auth', 'verified']], function() {
         Route::get('/project/closed', [ProjectController::class, 'closed'])->name('project.closed');
         Route::get('/project/canceled', [ProjectController::class, 'canceled'])->name('project.canceled');
         Route::get('/project/hold', [ProjectController::class, 'hold'])->name('project.hold');
-        Route::get('/project/create', [ProjectController::class, 'create'])->name('project.create');
-        Route::post('/project/create', [ProjectController::class, 'store'])->name('project.store');
-        Route::get('/project/{id}/edit', [ProjectController::class, 'edit'])->name('project.edit');
-        Route::put('/project/{id}', [ProjectController::class, 'update'])->name('project.update');
+        // Route::get('/project/create', [ProjectController::class, 'create'])->name('project.create');
+        // Route::post('/project/create', [ProjectController::class, 'store'])->name('project.store');
+        // Route::get('/project/{id}/edit', [ProjectController::class, 'edit'])->name('project.edit');
+        // Route::put('/project/{id}', [ProjectController::class, 'update'])->name('project.update');
         Route::get('/project/{id}', [ProjectController::class, 'show'])->name('project.show');
         Route::get('/project/{project_id}/jobs', [JobController::class, 'index'])->name('project.jobs.index');
         Route::get('/project/{project_id}/jobs/create', [JobController::class, 'create'])->name('project.jobs.create');
@@ -77,10 +83,41 @@ Route::group(['middleware' => ['auth', 'verified']], function() {
         // Route::post('/project/task', [TaskController::class, 'store'])->name('project.task.store');
         // Route::get('/project/task/{id}/edit', [TaskController::class, 'edit'])->name('project.task.edit');
         // Route::put('/project/task/{id}', [TaskController::class, 'update'])->name('project.task.update');
-        
     });
 });
 
+Route::group([
+    'prefix' => 'admin',
+    'namespace' => 'Admin',
+    'as' => 'admin.'
+], function (){
+    Route::group(['middleware' => ['role:admin', 'auth', 'verified']], function() {
+        Route::get('/', [AdminController::class, 'index']);
+        Route::get('/customer', [CustomerAdminController::class, 'index'])->name('customer.index');
+        Route::get('/customer/create', [CustomerAdminController::class, 'create'])->name('customer.create');
+        Route::post('/customer/create', [CustomerAdminController::class, 'store'])->name('customer.store');
+        Route::get('/customer/{id}/edit', [CustomerAdminController::class, 'edit'])->name('customer.edit');
+        Route::put('/customer/{id}', [CustomerAdminController::class, 'update'])->name('customer.update');
+        Route::delete('/customer/{id}', [CustomerAdminController::class, 'destroy'])->name('customer.delete');
+        Route::get('/project', [ProjectAdminController::class, 'index'])->name('project.index');
+        Route::get('/project/create', [ProjectAdminController::class, 'create'])->name('project.create');
+        Route::post('/project/create', [ProjectAdminController::class, 'store'])->name('project.store');
+        Route::get('/project/{id}/edit', [ProjectAdminController::class, 'edit'])->name('project.edit');
+        Route::get('/project/{id}', [ProjectAdminController::class, 'show'])->name('project.show');
+        Route::put('/project/{id}', [ProjectAdminController::class, 'update'])->name('project.update');
+        Route::delete('/project/{id}', [ProjectAdminController::class, 'destroy'])->name('project.delete');
+        Route::get('/project/{project_id}/task/create', [TaskAdminController::class, 'create'])->name('task.create');
+        Route::post('/project/create/task', [TaskAdminController::class, 'store'])->name('task.store');
+        Route::get('/project/task/{id}/edit', [TaskAdminController::class, 'edit'])->name('task.edit');
+        Route::put('/project/task/{id}', [TaskAdminController::class, 'update'])->name('task.update');
+        Route::delete('/project/task/{id}', [TaskAdminController::class, 'destroy'])->name('task.delete');
+        Route::get('/project/{project_id}/issue/create', [IssueAdminController::class, 'create'])->name('issue.create');
+        Route::post('/project/create/issue', [IssueAdminController::class, 'store'])->name('issue.store');
+        Route::get('/project/issue/{id}/edit', [IssueAdminController::class, 'edit'])->name('issue.edit');
+        Route::put('/project/issue/{id}', [IssueAdminController::class, 'update'])->name('issue.update');
+        Route::delete('/project/issue/{id}', [IssueAdminController::class, 'destroy'])->name('issue.delete');
+    });
+});
 //Route::get('/', function () {
 //    return Inertia::render('Welcome', [
 //        'canLogin' => Route::has('login'),

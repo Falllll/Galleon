@@ -11,13 +11,9 @@ class BoardController extends Controller
 {
     public function index()
     {
-        if(Auth::user()->hasRole('admin')){
-            return Inertia::render('Admin/Index');
-        }elseif(Auth::user()->hasRole('admin')){
-            return Inertia::render('Boards/Index', [
-                'boards' => auth()->user()->boards
-            ]);
-        }
+        return Inertia::render('Boards/Index', [
+            'boards' => auth()->user()->boards
+        ]);
     }
 
     public function show(Board $board, Card $card = null)

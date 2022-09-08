@@ -10,6 +10,14 @@ module.exports = {
 
     theme: {
         extend: {
+            colors:{
+                'green-desa':'#16A085',
+                'indigo-inventory':'#0b486b',
+                'green-inventory':'#3b8686',
+                'blue-inventory':'#79bd9a',
+                'celadon-inventory':'#a8dba8',
+                'yellow-inventory':'#cff09e',
+            },
             fontFamily: {
                 sans: [...defaultTheme.fontFamily.sans],
             },

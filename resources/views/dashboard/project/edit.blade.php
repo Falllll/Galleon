@@ -1,4 +1,4 @@
-@extends('dashboard.app')
+{{-- @extends('dashboard.app')
 @section('title','Project')
 @section('head', 'Project')
 @section('header', 'Project')
@@ -378,4 +378,4 @@
 });
 </script>
 
-@endsection
+@endsection --}}

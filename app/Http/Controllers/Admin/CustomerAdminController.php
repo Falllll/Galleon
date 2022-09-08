@@ -1,23 +1,24 @@
 <?php
 
-namespace App\Http\Controllers\Dashboard;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Customer;
 
-class CustomerController extends Controller
+class CustomerAdminController extends Controller
 {
     public function index()
     {
         $customers = Customer::all();
-        return view('dashboard.customer.index')
+
+        return view('admin.customer.index')
         ->with('customers', $customers);
     }
 
     public function create()
     {
-        return view('dashboard.customer.create');
+        return view('admin.customer.create');
     }
 
     public function store(Request $request)
@@ -40,13 +41,13 @@ class CustomerController extends Controller
         $customer->address = $request->address;
         $customer->save();
 
-        return redirect('dashboard/customer/create')->with('status', 'Customer created!');
+        return redirect('admin/customer')->with('status', 'Customer created!');
     }
 
     public function edit($id)
     {
         $customer = Customer::findOrFail($id);
-        return view('dashboard.customer.edit', compact([ 'customer']));
+        return view('admin.customer.edit', compact([ 'customer']));
     }
 
     public function update(Request $request, $id)
@@ -69,14 +70,12 @@ class CustomerController extends Controller
         $customer->address = $request->address;
         $customer->save();
 
-        return redirect()->back()->with('status', 'Customer updated!');
+        return redirect('admin/customer')->with('status', 'Customer updated!');
     }
 
-    public function show($id)
+    public function destroy($id)
     {
-        $customer = Customer::with('projects')->findOrFail($id);
-
-        return view('dashboard.customer.show')
-        ->with('customer', $customer);
+        Customer::find($id)->delete();
+        return back()->with('status', 'Customer deleted!');
     }
 }
