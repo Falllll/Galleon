@@ -40,9 +40,13 @@
             <i class="fas fa-user-minus mr-3"></i>
             Customer
         </a>
-        <a href="tabs.html" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
-            <i class="fas fa-tablet-alt mr-3"></i>
-            Tabbed Content
+        <a href="{{ url('admin/user') }}" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+            <i class="fas fa-users mr-3"></i>
+            User
+        </a>
+        <a href="{{ url('admin/position') }}" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+            <i class="fas fa-sitemap mr-3"></i>
+            User
         </a>
         <a href="calendar.html" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
             <i class="fas fa-calendar mr-3"></i>
@@ -60,9 +64,6 @@
             <i class="fas fa-sign-out-alt mr-3"></i>
             Sign Out
         </a>
-        <button class="w-full bg-white cta-btn font-semibold py-2 mt-3 rounded-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
-            <i class="fas fa-arrow-circle-up mr-3"></i> Upgrade to Pro!
-        </button>
     </nav>
     <!-- <button class="w-full bg-white cta-btn font-semibold py-2 mt-5 rounded-br-lg rounded-bl-lg rounded-tr-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
         <i class="fas fa-plus mr-3"></i> New Report

@@ -18,11 +18,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(LaratrustSeeder::class);
+
         $user = User::factory()->create([
             'name' => 'Gatot Kaca',
             'email' => 'gatotkaca@gmail.com',
-            'password' => bcrypt('secret')
-        ]);
+            'password' => bcrypt('secret'),
+            'position_id' => '1'
+        ])->attachRole('user');
 
         $boards = Board::factory(10)->for($user)->create();
 
@@ -39,11 +42,11 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        $this->call(LaratrustSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(CustomerSeeder::class);
         $this->call(ProjectSeeder::class);
+        $this->call(PositionSeeder::class);
 
-        $user->attachRole('user');
+        
     }
 }

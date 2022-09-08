@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\CustomerAdminController;
 use App\Http\Controllers\Admin\ProjectAdminController;
 use App\Http\Controllers\Admin\TaskAdminController;
 use App\Http\Controllers\Admin\IssueAdminController;
+use App\Http\Controllers\Admin\UserAdminController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BoardController;
 use App\Http\Controllers\CardController;
@@ -116,6 +117,13 @@ Route::group([
         Route::get('/project/issue/{id}/edit', [IssueAdminController::class, 'edit'])->name('issue.edit');
         Route::put('/project/issue/{id}', [IssueAdminController::class, 'update'])->name('issue.update');
         Route::delete('/project/issue/{id}', [IssueAdminController::class, 'destroy'])->name('issue.delete');
+
+        Route::get('/user', [UserAdminController::class, 'index'])->name('user.index');
+        Route::get('/user/create', [UserAdminController::class, 'create'])->name('user.create');
+        Route::post('/user/create', [UserAdminController::class, 'store'])->name('user.store');
+        Route::get('/user/{id}/edit', [UserAdminController::class, 'edit'])->name('user.edit');
+        Route::put('/user/{id}', [UserAdminController::class, 'update'])->name('user.update');
+        Route::delete('/user/{id}', [UserAdminController::class, 'destroy'])->name('user.delete');
     });
 });
 //Route::get('/', function () {
