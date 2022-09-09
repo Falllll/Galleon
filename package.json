@@ -28,6 +28,7 @@
     "dependencies": {
         "@headlessui/vue": "^1.6.7",
         "@heroicons/vue": "^1.0.6",
+        "lightbox2": "^2.11.3",
         "vuedraggable": "^4.1.0"
     }
 }

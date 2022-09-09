@@ -5,6 +5,8 @@
     <!-- ChartJS -->
     <script src="https://unpkg.com/flowbite@1.3.4/dist/flowbite.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+    <script src="{{ asset('lightbox/js/lightbox-plus-jquery.min.js') }}"></script>
     <script>
         // allert time
         $(document).ready(function(){

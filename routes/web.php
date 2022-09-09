@@ -110,12 +110,16 @@ Route::group([
         Route::get('/project/{id}', [ProjectAdminController::class, 'show'])->name('project.show');
         Route::put('/project/{id}', [ProjectAdminController::class, 'update'])->name('project.update');
         Route::delete('/project/{id}', [ProjectAdminController::class, 'destroy'])->name('project.delete');
+
         Route::get('/project/{project_id}/task/create', [TaskAdminController::class, 'create'])->name('task.create');
         Route::post('/project/create/task', [TaskAdminController::class, 'store'])->name('task.store');
+        Route::get('/project/task/{id}', [TaskAdminController::class, 'show'])->name('task.show');
         Route::get('/project/task/{id}/edit', [TaskAdminController::class, 'edit'])->name('task.edit');
         Route::put('/project/task/{id}', [TaskAdminController::class, 'update'])->name('task.update');
         Route::delete('/project/task/{id}', [TaskAdminController::class, 'destroy'])->name('task.delete');
+
         Route::get('/project/{project_id}/issue/create', [IssueAdminController::class, 'create'])->name('issue.create');
+        Route::get('/project/issue/{id}', [IssueAdminController::class, 'show'])->name('issue.show');
         Route::post('/project/create/issue', [IssueAdminController::class, 'store'])->name('issue.store');
         Route::get('/project/issue/{id}/edit', [IssueAdminController::class, 'edit'])->name('issue.edit');
         Route::put('/project/issue/{id}', [IssueAdminController::class, 'update'])->name('issue.update');

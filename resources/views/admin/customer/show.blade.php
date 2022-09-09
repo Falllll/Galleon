@@ -67,7 +67,7 @@
                                     @foreach ($customer->projects as $data)
                                         <li class="p-1">
                                             - <a class="underline"
-                                                href="{{ url('dashboard/project') }}/{{ $data->id }}">{{ $data->name }}</a>
+                                                href="{{ url('admin/project') }}/{{ $data->id }}">{{ $data->name }}</a>
                                         </li>
                                     @endforeach
                                 </ul>
@@ -80,7 +80,7 @@
                     </div>
                     <div class="ml-auto text-right">
                         {{-- <a class="relative z-10 inline-block px-4 py-3 mb-0 font-bold text-center text-transparent uppercase align-middle transition-all border-0 rounded-lg shadow-none cursor-pointer leading-pro text-xs ease-soft-in bg-150 bg-gradient-to-tl from-red-600 to-rose-400 hover:scale-102 active:opacity-85 bg-x-25 bg-clip-text" href="javascript:;"><i class="mr-2 far fa-trash-alt bg-150 bg-gradient-to-tl from-red-600 to-rose-400 bg-x-25 bg-clip-text"></i>Delete</a> --}}
-                        <a href="{{ url('dashboard/customer') }}/{{ $customer->id }}/{{ 'edit' }}"
+                        <a href="{{ url('admin/customer') }}/{{ $customer->id }}/{{ 'edit' }}"
                             class="inline-block px-4 py-3 mb-0 font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none cursor-pointer leading-pro text-xs ease-soft-in bg-150 hover:scale-102 active:opacity-85 bg-x-25 text-slate-700"
                             href="javascript:;"><i class="mr-2 fas fa-pencil-alt text-slate-700"
                                 aria-hidden="true"></i>Edit</a>
