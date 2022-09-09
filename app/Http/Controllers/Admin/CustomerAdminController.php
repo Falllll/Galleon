@@ -16,6 +16,14 @@ class CustomerAdminController extends Controller
         ->with('customers', $customers);
     }
 
+    public function show($id)
+    {
+        $customer = Customer::with('projects')->findOrFail($id);
+
+        return view('admin.customer.show')
+        ->with('customer', $customer);
+    }
+
     public function create()
     {
         return view('admin.customer.create');

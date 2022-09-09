@@ -61,7 +61,11 @@
                 @foreach ($customers as $data)
                     <tr>
                         <td class="text-left py-3 px-4">{{ $i++ }}</td>
-                        <td class="text-left py-3 px-4">{{ $data->name }}</td>
+                        <td class="text-left py-3 px-4">
+                            <a class="underline text-blue-600" href="{{ url('admin/customer') }}/{{ $data->id }}" >
+                                {{ $data->name }}
+                            </a>    
+                        </td>
                         <td class="text-left py-3 px-4">
                             {{-- jika Email Belum diisi --}}
                             @if (empty($data->email))

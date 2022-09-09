@@ -96,11 +96,13 @@ Route::group([
     Route::group(['middleware' => ['role:admin', 'auth', 'verified']], function() {
         Route::get('/', [AdminController::class, 'index']);
         Route::get('/customer', [CustomerAdminController::class, 'index'])->name('customer.index');
+        Route::get('/customer/{id}', [CustomerAdminController::class, 'show'])->name('customer.show');
         Route::get('/customer/create', [CustomerAdminController::class, 'create'])->name('customer.create');
         Route::post('/customer/create', [CustomerAdminController::class, 'store'])->name('customer.store');
         Route::get('/customer/{id}/edit', [CustomerAdminController::class, 'edit'])->name('customer.edit');
         Route::put('/customer/{id}', [CustomerAdminController::class, 'update'])->name('customer.update');
         Route::delete('/customer/{id}', [CustomerAdminController::class, 'destroy'])->name('customer.delete');
+
         Route::get('/project', [ProjectAdminController::class, 'index'])->name('project.index');
         Route::get('/project/create', [ProjectAdminController::class, 'create'])->name('project.create');
         Route::post('/project/create', [ProjectAdminController::class, 'store'])->name('project.store');
