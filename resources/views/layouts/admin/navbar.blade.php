@@ -8,7 +8,10 @@
         <button x-show="isOpen" @click="isOpen = false" class="h-full w-full fixed inset-0 cursor-default"></button>
         <div x-show="isOpen" class="absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16">
             <a href="#" class="block px-4 py-2 account-link hover:text-white">Account</a>
-            <a href="#" class="block px-4 py-2 account-link hover:text-white">Sign Out</a>
+            <form action="{{route('logout')}}" method="POST" class="block px-4 py-2 account-link hover:text-white">
+                @csrf
+                <button>Sign Out</button>
+            </form>
         </div>
     </div>
 </header>
@@ -60,10 +63,11 @@
             <i class="fas fa-user mr-3"></i>
             My Account
         </a>
-        <a href="#" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+        <form action="{{route('logout')}}" method="POST" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+            @csrf
             <i class="fas fa-sign-out-alt mr-3"></i>
-            Sign Out
-        </a>
+            <button>Sign Out</button>
+        </form>
     </nav>
     <!-- <button class="w-full bg-white cta-btn font-semibold py-2 mt-5 rounded-br-lg rounded-bl-lg rounded-tr-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
         <i class="fas fa-plus mr-3"></i> New Report
