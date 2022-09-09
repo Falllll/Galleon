@@ -19,7 +19,7 @@ class ProjectAdminController extends Controller
 
     public function create()
     {
-        $customers = Customer::all();
+        $customers = Customer::where('is_active', 1)->get();
         return view('admin.project.create', compact(['customers']));
     }
 

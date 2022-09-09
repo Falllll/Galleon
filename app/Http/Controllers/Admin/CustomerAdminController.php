@@ -68,6 +68,7 @@ class CustomerAdminController extends Controller
         $customer->email = $request->email;
         $customer->phone = $request->phone;
         $customer->address = $request->address;
+        $customer->is_active = $request->is_active;
         $customer->save();
 
         return redirect('admin/customer')->with('status', 'Customer updated!');

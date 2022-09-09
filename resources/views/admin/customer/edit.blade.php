@@ -61,6 +61,33 @@
                 @endif
             </div>
         </div>
+
+        <div class="col-span-5">
+            <div class="relative w-full border border-gray-400">
+                <select id="is_active"
+                    class="block p-2 w-full appearance-none focus:outline-none {{ $errors->has('is_active') ? 'is-invalid' : '' }}"
+                    name="is_active">
+                    @if ( old('is_active', $customer->is_active) == $customer->is_active )
+                    <option value="{{$customer->is_active}}" selected>
+                        @if ($customer->is_active == 1)
+                            --Active--
+                        @else
+                            --Non active--
+                        @endif
+                    </option>
+                    <option value="1">Active</option>
+                    <option value="0">Non active</option>
+                    @endif
+                </select>
+                {{-- <div class="flex items-center pointer-events-none absolute inset-y-0 right-0 px-2 text-gray-700">
+                    <i class="fas fa-chevron-down"></i>
+                </div> --}}
+            </div>
+            @if($errors->has('is_active'))
+            <div class="text-red-600">{{$errors->first('is_active')}}</div>
+            @endif
+        </div>
+
         <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-5">
             Update
         </button>
