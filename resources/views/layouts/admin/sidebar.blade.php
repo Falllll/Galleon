@@ -32,7 +32,7 @@
                 </a>
             </li>
             <li class=" w-full">
-                <a href="{{ url('admin/user') }}" class="flex items-center text-white opacity-75 bg-blue-800 hover:opacity-100 py-4 pl-6 nav-item">
+                <a href="{{ url('admin/position') }}" class="flex items-center text-white opacity-75 bg-blue-800 hover:opacity-100 py-4 pl-6 nav-item">
                     <i class="fas fa-sitemap mr-3"></i>
                     Position
                 </a>
