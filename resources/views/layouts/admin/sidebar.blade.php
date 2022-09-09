@@ -3,13 +3,9 @@
         <a href="" class=" text-white text-3xl font-semibold uppercase hover:text-gray-300">{{ Auth::user()->name }}</a>
     </div>
     <nav class="text-white text-base font-semibold pt-3">
-        <a href="index.html" class="flex items-center active-nav-link text-white py-4 pl-6 nav-item">
+        <a href="{{ url('admin') }}" class="flex items-center active-nav-link text-white py-4 pl-6 nav-item">
             <i class="fas fa-tachometer-alt mr-3"></i>
             Dashboard
-        </a>
-        <a href="blank.html" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
-            <i class="fas fa-sticky-note mr-3"></i>
-            Blank Page
         </a>
         <a href="{{ url('admin/project') }}" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
             <i class="fas fa-folder mr-3"></i>
