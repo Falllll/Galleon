@@ -2,12 +2,6 @@
 @section('title', 'Task')
 @section('content')
 
-
-
-
-
-
-
     <div class="m-2 relative flex flex-col min-w-0 break-words bg-white border-0 shadow-soft-xl rounded-2xl bg-clip-border">
         <div class="flex-auto p-4 pt-6">
             <ul class="flex flex-col pl-0 mb-0 rounded-lg">

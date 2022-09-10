@@ -5,6 +5,7 @@
 
         @include('layouts.admin.navbar')
             <div class="w-full overflow-x-hidden border-t flex flex-col">
+                @include('vendor._notification')
                     @yield('content')
                     
                 </div>

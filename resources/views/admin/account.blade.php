@@ -3,8 +3,6 @@
 
 @section('content')
 
-@include('vendor._notification')
-
 <form method="POST" action="{{ route('admin.profile.update') }}">
     @csrf
     <div class="bg-white rounded shadow border p-6">
