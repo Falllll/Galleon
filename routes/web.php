@@ -95,6 +95,9 @@ Route::group([
 ], function (){
     Route::group(['middleware' => ['role:admin', 'auth', 'verified']], function() {
         Route::get('/', [AdminController::class, 'index']);
+        Route::get('/profile', [AdminController::class, 'edit'])->name('profile');
+        Route::post('/update',  [AdminController::class,'update'])->name('profile.update');
+
         Route::get('/customer', [CustomerAdminController::class, 'index'])->name('customer.index');
         Route::get('/customer/{id}', [CustomerAdminController::class, 'show'])->name('customer.show');
         Route::get('/customer/create', [CustomerAdminController::class, 'create'])->name('customer.create');
