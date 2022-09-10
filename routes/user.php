@@ -8,7 +8,6 @@ use App\Http\Controllers\Dashboard\IssueController;
 use App\Http\Controllers\Dashboard\CustomerController;
 use App\Http\Controllers\Dashboard\TaskController;
 use App\Http\Controllers\Dashboard\CommentController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BoardController;
 use App\Http\Controllers\CardController;
 use App\Http\Controllers\CardListController;

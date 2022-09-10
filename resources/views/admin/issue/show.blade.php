@@ -1,5 +1,5 @@
 @extends('admin.app')
-@section('title', 'Task')
+@section('title', 'Issue')
 @section('content')
 
     <div class="m-2 relative flex flex-col min-w-0 break-words bg-white border-0 shadow-soft-xl rounded-2xl bg-clip-border">
@@ -7,8 +7,8 @@
             <ul class="flex flex-col pl-0 mb-0 rounded-lg">
                 <li class="relative flex p-6 mb-2 border-0 rounded-t-inherit rounded-xl bg-gray-50">
                     <div class="flex flex-col">
-                        <h6 class="mb-4 leading-normal text-xl">Task Detail</h6>
-                        <span class="mb-2 leading-tight text-sm">Task ID: <span
+                        <h6 class="mb-4 leading-normal text-xl">Issue Detail</h6>
+                        <span class="mb-2 leading-tight text-sm">Issue ID: <span
                                 class="font-semibold text-slate-700 sm:ml-2">{{ $issue->id }}</span></span>
                         <span class="mb-2 leading-tight text-sm">From Project:
                             <span class="font-semibold text-slate-700 sm:ml-2">
@@ -23,9 +23,9 @@
                                 @endif
                             </span>
                         </span>
-                        <span class="mb-2 leading-tight text-sm">Task Name: <span
+                        <span class="mb-2 leading-tight text-sm">Issue Name: <span
                                 class="font-semibold text-slate-700 sm:ml-2">{{ $issue->name }}</span></span>
-                        <span class="mb-2 leading-tight text-sm">Task Description:
+                        <span class="mb-2 leading-tight text-sm">Issue Description:
                             <span class="font-semibold text-slate-700 sm:ml-2">
                                 @if (empty($issue->description))
                                     <span class="text-red-600">
@@ -47,7 +47,7 @@
                                 @endif
                             </span>
                         </span>
-                        <span class="mb-2 leading-tight text-sm">Task Status:
+                        <span class="mb-2 leading-tight text-sm">Issue Status:
                             <span class="font-semibold text-slate-700 sm:ml-2">
                                 {{ $issue->status }}
                             </span>
@@ -57,7 +57,7 @@
                                 class="font-semibold text-slate-700 sm:ml-2">{{ date('d F Y', strtotime($issue->created_at)) }}</span></span>
                         <span class="mb-2 leading-tight text-sm">Updated At: <span
                                 class="font-semibold text-slate-700 sm:ml-2">{{ date('d F Y', strtotime($issue->updated_at)) }}</span></span>
-                                <span class="mb-2 leading-tight text-sm">Task File:
+                                <span class="mb-2 leading-tight text-sm">Issue File:
                                     <span class="font-semibold text-slate-700 sm:ml-2">
                                         @if (empty($issue->file))
                                                 <span class="text-red-600">
@@ -75,7 +75,7 @@
                                     </span>
                                 </span>
                         
-                                <span class="mb-2 leading-tight text-sm">Task Image:
+                                <span class="mb-2 leading-tight text-sm">Issue Image:
 
                                     @if (empty($issue->img))
                                     <span class="text-red-600">
