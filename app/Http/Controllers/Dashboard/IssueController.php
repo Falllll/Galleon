@@ -69,6 +69,16 @@ class IssueController extends Controller
         ->with('worker', $worker);
     }
 
+    public function show($id)
+    {
+        $issue = Issue::with('project', 'worker')->findOrFail($id);
+        $project = Project::where('id', $issue->project_id)->get();
+        // dd($issue);
+        return view('dashboard.project.issue.show')
+        ->with('project', $project)
+        ->with('issue', $issue);
+    }
+
     public function update(Request $request, $id)
     {
         $rules = [

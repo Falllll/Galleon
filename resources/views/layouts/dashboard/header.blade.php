@@ -5,6 +5,7 @@
     <link rel="icon" type="image/png" href="assets/img/favicon.png" />
     <title>{{ config('app.name', 'Galleon') }}</title>
     <!--     Fonts and icons     -->
+    <link href="{{ asset('lightbox/css/lightbox.min.css') }}" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
     <!-- Font Awesome Icons -->
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>

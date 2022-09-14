@@ -46,7 +46,9 @@
                                         class="underline p-2 leading-normal text-center align-middle bg-transparent border-b text-sm whitespace-nowrap shadow-transparent">
                                         <div class="flex px-2 py-1">
                                             <div class="flex flex-col justify-center ">
-                                                {{ $data->name }}
+                                                <a class="underline text-blue-600" href="{{ url('dashboard/project/issue') }}/{{ $data->id }}" >
+                                                    {{ $data->name }}
+                                                </a> 
                                             </div>
                                         </div>
                                     </td>

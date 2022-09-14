@@ -35,6 +35,8 @@ class JobController extends Controller
             'name' => 'required|max:100',
             'worker_id' => 'required',
             'type_id' => 'required',
+            'img' => 'nullable|mimes:jpg,jpeg,png|max:2048',
+            'file' => 'nullable|mimes:doc,docx,pdf,xls,xlsx,ppt,pptx|max:5024',
         ];
 
         $messages = [
@@ -42,19 +44,55 @@ class JobController extends Controller
             'name.max' => 'Nama Job terlalu panjang',
             'worker_id.required' => 'Nama pekerja harus diisi',
             'type_id.required' => 'Tipe pekerjaan harus diisi',
+            'img.mimes' => 'Format gambar harus jpg,jpeg,png',
+            'img.max' => 'Gambar tidak boleh lebih dari 2mb',
+            'file.mimes' => 'Dokumen gambar harus doc,docx,pdf,xls,xlsx,ppt,pptx',
+            'file.max' => 'Dokumen tidak boleh lebih dari 5mb',
         ];
 
         $this->validate($request, $rules, $messages);
 
-        $job = new Job;
-        $job->project_id = $request->project_id;
-        $job->name = $request->name;
-        $job->description = $request->description;
-        $job->worker_id = $request->worker_id;
-        $job->type_id = $request->type_id;
-        $job->save();
+        // ubah nama gambar
+        if(!empty($request->img)){
+            $img = $request->img;
+            $imgName = time() . rand(100, 999) . "." . $img->getClientOriginalExtension();
+        }
+        
+        if(!empty($request->file)){
+            $file = $request->file;
+            $fileName = time() . rand(100, 999) . "." . $file->getClientOriginalExtension();
+        }
 
-        return redirect()->back()->with('status', 'Task created!');
+
+
+        $task = new Job;
+        $task->project_id = $request->project_id;
+        $task->name = $request->name;
+        $task->description = $request->description;
+        $task->worker_id = $request->worker_id;
+        $task->type_id = $request->type_id;
+        if(!empty($request->img)){
+            $task->img = $imgName;
+            $img->move(public_path() . '/storage/img/task', $imgName);
+        }
+        if(!empty($request->file)){
+            $task->file = $fileName;
+            $file->move(public_path() . '/storage/doc/task', $fileName);
+        }
+        // dd($task);
+        $task->save();
+
+        return redirect()->route('dashboard.project.show',$task->project_id)->with('status', 'Task created!');
+    }
+
+    public function show($id)
+    {
+        $task = Job::with('project', 'worker')->findOrFail($id);
+        $project = Project::where('id', $task->project_id)->get();
+        // dd($task);
+        return view('dashboard.project.job.show')
+        ->with('project', $project)
+        ->with('task', $task);
     }
 
     public function edit($id)
@@ -75,6 +113,8 @@ class JobController extends Controller
             'name' => 'required|max:100',
             'worker_id' => 'required',
             'type_id' => 'required',
+            'img' => 'nullable|mimes:jpg,jpeg,png|max:2048',
+            'file' => 'nullable|mimes:doc,docx,pdf,xls,xlsx,ppt,pptx|max:5024',
         ];
 
         $messages = [
@@ -82,19 +122,47 @@ class JobController extends Controller
             'name.max' => 'Nama Job terlalu panjang',
             'worker_id.required' => 'Nama pekerja harus diisi',
             'type_id.required' => 'Tipe pekerjaan harus diisi',
+            'img.mimes' => 'Format gambar harus jpg,jpeg,png',
+            'img.max' => 'Gambar tidak boleh lebih dari 2mb',
+            'file.mimes' => 'Dokumen gambar harus doc,docx,pdf,xls,xlsx,ppt,pptx',
+            'file.max' => 'Dokumen tidak boleh lebih dari 5mb',
         ];
+
+        
 
         $this->validate($request, $rules, $messages);
 
-        $job = Job::find($id);
-        $job->name = $request->name;
-        $job->description = $request->description;
-        $job->worker_id = $request->worker_id;
-        $job->status = $request->status;
-        $job->type_id = $request->type_id;
-        $job->save();
+        // ubah nama gambar
+        if(!empty($request->img)){
+            $img = $request->img;
+            $imgName = time() . rand(100, 999) . "." . $img->getClientOriginalExtension();
+        }
+        
+        if(!empty($request->file)){
+            $file = $request->file;
+            $fileName = time() . rand(100, 999) . "." . $file->getClientOriginalExtension();
+        }
 
-        return redirect()->back()->with('status', 'Task updated!');
+
+        $task = Job::find($id);
+        $task->name = $request->name;
+        $task->project_id = $request->project_id;
+        $task->description = $request->description;
+        $task->worker_id = $request->worker_id;
+        $task->status = $request->status;
+        $task->type_id = $request->type_id;
+        if(!empty($request->img)){
+            $task->img = $imgName;
+            $img->move(public_path() . '/storage/img/task', $imgName);
+        }
+        if(!empty($request->file)){
+            $task->file = $fileName;
+            $file->move(public_path() . '/storage/doc/task', $fileName);
+        }
+        // dd($task);
+        $task->save();
+
+        return redirect()->route('dashboard.project.show',$task->project_id)->with('status', 'Task updated!');
     }
 
 }

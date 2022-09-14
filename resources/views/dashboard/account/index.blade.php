@@ -1,14 +1,15 @@
-@extends('admin.app')
-@section('title','Profile')
-
+@extends('dashboard.app')
+@section('title','Account')
+@section('head', 'Account')
+@section('header', 'Account')
 @section('content')
+
 
 <form method="POST" action="{{ route('admin.profile.update') }}">
     @csrf
     <div class="bg-white rounded shadow border p-6">
 
 
-        
         <div class="grid flex justify-between grid-cols-1 gap-4 my-3">
             <div>
                 <label class="font-bold text-lg" for="">Nama</label>
@@ -62,12 +63,14 @@
                 @endif
             </div>
         </div>
-        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-5">
-            Simpan
-        </button>
-        <a href="{{url('admin')}}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-5 rounded">
-            Batal
-        </a>
+        <div>
+
+            <button type="submit" class="inline-block px-6 py-3 mt-6 mb-0 font-bold text-cente uppercase align-middle transition-all bg-transparent border-0 rounded-lg cursor-pointer shadow-soft-md bg-x-25 bg-150 leading-pro text-xs ease-soft-in tracking-tight-soft bg-gradient-to-tl from-gray-600 to-slate-400 hover:scale-102 hover:shadow-soft-xs active:opacity-85 text-white">
+                Simpan
+            </button>
+        </div>
     </div>
 </form>
+<script src="https://cdn.tailwindcss.com"></script>
+
 @endsection

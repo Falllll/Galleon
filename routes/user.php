@@ -23,6 +23,7 @@ Route::group(['middleware' => ['role:user', 'auth', 'verified']], function() {
     Route::put('/cards/{card}', [CardController::class, 'update'])->name('cards.update');
     Route::put('/cards/{card}/move', [CardController::class, 'move'])->name('cards.move');
     Route::delete('/cards/{card}', [CardController::class, 'destroy'])->name('cards.destroy');
+    
 
     Route::group([
             'prefix' => 'dashboard',
@@ -30,7 +31,8 @@ Route::group(['middleware' => ['role:user', 'auth', 'verified']], function() {
             'as' => 'dashboard.'
     ], function (){
         Route::get('/', [DashboardController::class, 'index'])->name('index');
-        Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+        Route::get('/profile', [DashboardController::class, 'edit'])->name('profile');
+        Route::post('/update',  [DashboardController::class,'update'])->name('profile.update');
         Route::get('/customer', [CustomerController::class, 'index'])->name('customer.index');
         Route::get('/customer/{id}', [CustomerController::class, 'show'])->name('customer.show');
         // Route::get('/customer/create', [CustomerController::class, 'create'])->name('customer.create');
@@ -52,12 +54,14 @@ Route::group(['middleware' => ['role:user', 'auth', 'verified']], function() {
         Route::get('/project/{project_id}/jobs', [JobController::class, 'index'])->name('project.jobs.index');
         Route::get('/project/{project_id}/jobs/create', [JobController::class, 'create'])->name('project.jobs.create');
         Route::post('/project/create/job', [JobController::class, 'store'])->name('project.job.store');
+        Route::get('/project/task/{id}', [JobController::class, 'show'])->name('task.show');
         Route::get('/project/job/{id}/edit', [JobController::class, 'edit'])->name('project.job.edit');
         Route::put('/project/job/{id}', [JobController::class, 'update'])->name('project.job.update');
 
         Route::get('/project/{project_id}/issue', [IssueController::class, 'index'])->name('project.issue.index');
         Route::get('/project/{project_id}/issue/create', [IssueController::class, 'create'])->name('project.issue.create');
         Route::post('/project/create/issue', [IssueController::class, 'store'])->name('project.issue.store');
+        Route::get('/project/issue/{id}', [IssueController::class, 'show'])->name('issue.show');
         Route::get('/project/issue/{id}/edit', [IssueController::class, 'edit'])->name('project.issue.edit');
         Route::put('/project/issue/{id}', [IssueController::class, 'update'])->name('project.issue.update');
 

@@ -8,6 +8,8 @@
   <script src="{{asset('assets/js/soft-ui-dashboard-tailwind.js?v=1.0.3')}}" async></script>
 
   <script src="https://unpkg.com/flowbite@1.3.4/dist/flowbite.js"></script>
+  <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+  <script src="{{ asset('lightbox/js/lightbox-plus-jquery.min.js') }}"></script>
 
   <script>
     // allert time

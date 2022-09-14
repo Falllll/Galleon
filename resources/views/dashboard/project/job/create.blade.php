@@ -16,7 +16,7 @@
     <div class="flex-none w-full max-w-full px-3">
         <div class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
                     <div class="flex-auto p-6">
-                    <form role="form" method="POST" action="{{route('dashboard.project.job.store')}}">
+                    <form role="form" method="POST" action="{{route('dashboard.project.job.store')}}" enctype="multipart/form-data">
                       @csrf
 
                         <input type="hidden" name="project_id" value="{{ $project->id}}">
@@ -30,7 +30,7 @@
                         @endif
                       </div>
 
-                      <label class="mb-2 ml-1 font-bold text-xs text-slate-700">Description<span class="text-red-600">*</span></label>
+                      <label class="mb-2 ml-1 font-bold text-xs text-slate-700">Description</label>
                       <div class="mb-10">
                         <input type="text" class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow {{ $errors->has('description') ? ' is-invalid' : '' }}"
                         placeholder="Description Job" aria-label="Description" autocomplete="off" aria-describedby="description-addon" name="description" value="{{old('description')}}" require/>
@@ -69,7 +69,38 @@
                         @endif
                       </div>
 
-     
+                      <div class="grid flex justify-between grid-cols-1 gap-4 my-3">
+                        <div>
+                            <label class="font-bold text-lg" for="file">File</label>
+                        </div>
+                        <div class="col-span-5">
+                            <input id="file" type="file"
+                                class="relative outline-none border border-gray-400 rounded py-3 px-3 w-full bg-white shadow text-sm text-gray-700 focus:outline-none focus:shadow-outline {{ $errors->has('file') ? 'is-invalid' : '' }}"
+                                name="file" value="{{old('file')}}" />
+                            @if($errors->has('file'))
+                            <div class="text-red-600 italic">{{ $errors->first('file') }}</div>
+                            @endif
+                        </div>
+                    </div>
+                    
+                    <div class="grid flex justify-between grid-cols-1 gap-4 my-3">
+                        <div>
+                            <label class="font-bold text-lg" for="img">Image</label>
+                        </div>
+                        <div class='flex flex-col items-center justify-center w-full'>
+                            <label for="img"
+                                class='flex flex-col border-4 border-dashed w-full h-46 hover:bg-gray-100 hover:border-purple-300 group'>
+                                <div class='flex flex-col items-center justify-center pt-7 pb-4'>
+                                    <img class="img-preview w-56 h-40 object-cover object-center border-2 border-dashed">
+                                    {{-- <svg class="w-10 h-10 text-purple-400 group-hover:text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg> --}}
+                                    <p class='lowercase text-sm text-gray-400 group-hover:text-purple-600 pt-1 tracking-wider'>
+                                        Select a photo</p>
+                                </div>
+                                <input id="img" value="{{old('img')}}" name="img" type='file'
+                                    class="{{ $errors->has('img') ? 'is-invalid' : '' }}" />
+                            </label>
+                        </div>
+                    </div>
 
                     
 
